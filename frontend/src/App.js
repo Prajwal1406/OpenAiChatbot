@@ -15,7 +15,9 @@ const App = () => {
   useEffect(() => {
     const fetchChatHistory = async () => {
       try {
-        const res = await axios.get("http://localhost:8000/chat-history");
+        const res = await axios.get(
+          "https://openaichatbot-8stn.onrender.com/chat-history"
+        );
         setChatHistory(res.data.chat_history);
       } catch (error) {
         console.error("Error fetching chat history:", error);
@@ -30,11 +32,15 @@ const App = () => {
     setLoading(true);
 
     try {
-      const res = await axios.post("http://localhost:8000/upload", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      const res = await axios.post(
+        "https://openaichatbot-8stn.onrender.com/upload",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
       if (res.data.image_url) {
         setImageUrl(res.data.image_url);
         setResponse("");
@@ -61,7 +67,10 @@ const App = () => {
     setLoading(true);
 
     try {
-      const res = await axios.post("http://localhost:8000/text-input", new URLSearchParams({ prompt: textInput }));
+      const res = await axios.post(
+        "https://openaichatbot-8stn.onrender.com/text-input",
+        new URLSearchParams({ prompt: textInput })
+      );
       if (res.data.image_url) {
         setImageUrl(res.data.image_url);
         setResponse("");
@@ -89,7 +98,10 @@ const App = () => {
     setLoading(true);
 
     try {
-      const res = await axios.post("http://localhost:8000/image-url-input", new URLSearchParams({ url: imageInput, prompt: textInput }));
+      const res = await axios.post(
+        "https://openaichatbot-8stn.onrender.com/image-url-input",
+        new URLSearchParams({ url: imageInput, prompt: textInput })
+      );
       setResponse(res.data.response);
       setImageUrl("");
       setChatHistory([
@@ -106,11 +118,14 @@ const App = () => {
   };
 
   const copyToClipboard = (text) => {
-    navigator.clipboard.writeText(text).then(() => {
-      alert("Text copied to clipboard!");
-    }).catch((error) => {
-      console.error("Error copying text: ", error);
-    });
+    navigator.clipboard
+      .writeText(text)
+      .then(() => {
+        alert("Text copied to clipboard!");
+      })
+      .catch((error) => {
+        console.error("Error copying text: ", error);
+      });
   };
 
   const downloadImage = (url) => {
@@ -146,17 +161,26 @@ const App = () => {
       {loading && <p className="loading">Loading...</p>}
       <div className="chat-window">
         {chatHistory.map((entry, index) => (
-          <div key={index} className={`chat-message ${entry.type === "text" ? "assistant" : "user"}`}>
+          <div
+            key={index}
+            className={`chat-message ${
+              entry.type === "text" ? "assistant" : "user"
+            }`}
+          >
             {entry.type === "text" ? (
               <div>
                 <ResponseDisplay response={entry.content} />
-                <button onClick={() => copyToClipboard(entry.content)}>Copy Text</button>
+                <button onClick={() => copyToClipboard(entry.content)}>
+                  Copy Text
+                </button>
               </div>
             ) : (
               <div>
                 <h3>Generated Image:</h3>
                 <img src={entry.content} alt="Generated" />
-                <button onClick={() => downloadImage(entry.content)}>Download Image</button>
+                <button onClick={() => downloadImage(entry.content)}>
+                  Download Image
+                </button>
               </div>
             )}
           </div>

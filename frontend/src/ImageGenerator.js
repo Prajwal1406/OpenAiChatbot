@@ -7,9 +7,12 @@ const ImageGenerator = () => {
 
   const handleGenerateImage = async () => {
     try {
-      const res = await axios.post("http://localhost:8000/generate-image", {
-        prompt,
-      });
+      const res = await axios.post(
+        "https://openaichatbot-8stn.onrender.com/generate-image",
+        {
+          prompt,
+        }
+      );
       setImageUrl(res.data.image_url);
     } catch (error) {
       console.error("Error generating image:", error);
