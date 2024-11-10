@@ -30,7 +30,7 @@ CHUNK = 1024
 # Initialize FastAPI
 app = FastAPI()
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
-app.add_middleware( CORSMiddleware, allow_origins=["http://localhost:3000"], # Allow requests from this origin 
+app.add_middleware( CORSMiddleware, allow_origins=["http://localhost:3000","https://openaichatbot-front.onrender.com"], # Allow requests from this origin 
                    allow_credentials=True, 
                    allow_methods=["*"], 
                    allow_headers=["*"],
