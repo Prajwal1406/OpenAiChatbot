@@ -16,5 +16,8 @@ COPY . /backend
 # Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
+# Install additional Python packages
+RUN pip install python-multipart tensorflow-cpu
+
 # Command to run the application
 CMD ["python", "server.py"]

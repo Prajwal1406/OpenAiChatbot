@@ -4,6 +4,5 @@ openai
 PyAudio
 python-dotenv
 tensorflow
-tensorflow_intel
 uvicorn
 websockets
